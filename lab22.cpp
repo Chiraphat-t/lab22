@@ -28,6 +28,93 @@ ComplexNumber ComplexNumber::operator-(const ComplexNumber &c){
 	return ComplexNumber(real-c.real,imag-c.imag);
 }
 
+bool ComplexNumber::operator==(const ComplexNumber &c){
+	if(real==c.real&&imag==c.imag){return true;}
+	else{return false;}
+}
+
+ComplexNumber ComplexNumber::operator*(const ComplexNumber &c){
+	return ComplexNumber(((real*c.real)-(imag*c.imag)),((real*c.imag)+(imag*c.real)));
+}
+
+ComplexNumber ComplexNumber::operator/(const ComplexNumber &c){
+	//double s =pow(c.real,2)+pow(c.imag,2);
+	double r=c.real/(pow(c.real,2)+pow(c.imag,2));
+	double i=-c.imag/(pow(c.real,2)+pow(c.imag,2));
+	ComplexNumber z(r,i);
+	//ComplexNumber z=(real/(pow(real,2)+pow(imag,2)),-imag/(pow(real,2)+pow(imag,2)));
+	return ComplexNumber(real,imag)*ComplexNumber(z);
+}
+
+ComplexNumber operator+(double a,const ComplexNumber &c){
+	return ComplexNumber(a+c.real,0+c.imag);
+}
+
+ComplexNumber operator-(double a,const ComplexNumber &c){
+	return ComplexNumber(a-c.real,0-c.imag);
+}
+
+ComplexNumber operator*(double a,const ComplexNumber &c){
+
+	return ComplexNumber(((a*c.real)-(0*c.imag)),((a*c.imag)+(0*c.real)));
+}
+
+ComplexNumber operator/(double a,const ComplexNumber &c){
+	//return ComplexNumber (((a*c.real)-(0*c.imag)))/(pow(c.real,2)+pow(c.imag,2)),((a*c.imag)+(0*c.real))/(pow(c.real,2)+pow(c.imag,2));
+	double  b=a;
+	ComplexNumber A(b,0);
+	double r=c.real/(pow(c.real,2)+pow(c.imag,2));
+	double i=-c.imag/(pow(c.real,2)+pow(c.imag,2));
+	ComplexNumber z(r,i);
+	//ComplexNumber z=(real/(pow(real,2)+pow(imag,2)),-imag/(pow(real,2)+pow(imag,2)));
+	return ComplexNumber(A)*ComplexNumber(z);
+}
+
+bool operator==(double a,const ComplexNumber &c){
+	if(a==c.real&& 0==c.imag){return true;}
+	else{return false;}
+}
+
+
+double ComplexNumber::abs(){
+	return pow(pow(real,2)+pow(imag,2),0.5);
+
+}
+double ComplexNumber::angle(){
+	return atan2(imag,real)*180/M_PI;
+
+}
+
+ostream & operator<<(ostream &os,const ComplexNumber &c){
+
+	if (c.real==0 && c.imag==0)
+	{
+		return os << c.imag;
+	}
+	else if(c.real==0 && c.imag!=0)
+	{
+		return os << c.imag << "i";
+	}
+	else if (c.real!=0 &&c.imag==0)
+	{
+		return os << c.real;
+	}
+	else if (c.real>0 && c.imag>0)
+	{
+		return os << c.real <<"+" << c.imag << "i";
+	}
+	else if (c.real>0 && c.imag < 0){
+		return os << c.real << c.imag << "i";
+	}
+	else if (c.real<0 && c.imag > 0){
+		return os << c.real <<"+" << c.imag << "i";
+	}
+	else{
+	return os << c.real << c.imag << "i";
+	}
+
+}
+
 //Write your code here
 
 int main(){
